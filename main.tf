@@ -3,13 +3,13 @@ provider "aws" {
 }
 
 module "ec2" {
-  source         = "./ec2"
+  source         = "./EC2_Instance"
   #ami            = "ami-0c55b159cbfafe1f0"
   #instance_type  = "t2.micro"
 }
 
 module "postgres" {
-  source = "./postgres"
+  source = "./Postgres_Database"
 
   # You can pass EC2 outputs to this module if needed
   # For example:
