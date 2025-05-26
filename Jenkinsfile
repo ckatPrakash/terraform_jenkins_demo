@@ -1,16 +1,17 @@
 
 pipeline {
     agent any 
-        environment {
-            AWS_region = "us-east-1"
-	    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-            AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_KEY_ID')
-        choice(
+	choice(
             name: 'ENVIRONMENT',
             choices: ['EC2', 'POSTGRES'],
             description: 'Choose which module to deploy'
         )	
-  }
+        environment {
+            AWS_region = "us-east-1"
+	    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+            AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_KEY_ID')
+
+ 	 }
 if (params.ENVIRONMENT == 'POSTGRES') {	
     stages  {
 	stage('git checkout') {
