@@ -30,11 +30,11 @@ pipeline {
 		 script {
                     if (params.TERRAFORM_MODULE == 'EC2') {
                         echo "Running terraform plan for EC2"
-			sh 'terraform plan -input=false -lock=false -target=module.EC2_Instance -out=tfplan'    
+			sh 'terraform plan'    
 		    }
                     if (params.TERRAFORM_MODULE == 'Postgres') {
                         echo "Running terraform plan for Postgres"
-			sh 'terraform plan -input=false -lock=false -target=module.Postgres_Database -out=tfplan'
+			sh 'terraform plan'
 		    }
 
 		 }
@@ -56,13 +56,13 @@ pipeline {
 			script {
 			input message: "Are you sure you want to '${env.USER_ACTION}'?" 
 			if (env.USER_ACTION == 'apply' && params.TERRAFORM_MODULE == 'Postgres'){
-			sh 'terraform apply -input=false -auto-approve -lock=false tfplan'
+			sh 'terraform apply -input=false -auto-approve -lock=false -target=module.Postgres_Database'
 			}
 			if (env.USER_ACTION == 'destroy' && params.TERRAFORM_MODULE == 'Postgres') {
 			sh 'terraform destroy -auto-approve -target=module.Postgres_Database'
 			}
 			if (env.USER_ACTION == 'apply' && params.TERRAFORM_MODULE == 'EC2'){
-			sh 'terraform apply -input=false -auto-approve -lock=false tfplan'
+			sh 'terraform apply -input=false -auto-approve -lock=false -target=module.EC2_Instance'
 			}
 			if (env.USER_ACTION == 'destroy' && params.TERRAFORM_MODULE == 'EC2') {
 			sh 'terraform destroy -auto-approve -target=module.EC2_Instance'
