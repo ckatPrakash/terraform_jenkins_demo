@@ -1,6 +1,6 @@
-#provider "aws" {
-#  region = "us-east-1"
-#}
+provider "aws" {
+  region = "us-east-1"
+}
 
 module "ec2" {
   source         = "./EC2_Instance"
