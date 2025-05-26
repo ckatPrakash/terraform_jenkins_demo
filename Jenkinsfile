@@ -47,10 +47,10 @@ if (params.ENVIRONMENT == 'POSTGRES') {
 			script {
 			input message: "Are you sure you want to '${env.USER_ACTION}'?" 
 			if (env.USER_ACTION == 'apply'){
-			sh 'terraform apply -input=false -auto-approve -lock=false tfplan -target=module.postgres_db'
+			sh 'terraform apply -input=false -auto-approve -lock=false tfplan -target=module.Postgres_Database'
 			}
 			if (env.USER_ACTION == 'destroy') {
-			sh 'terraform destroy -auto-approve'
+			sh 'terraform destroy -auto-approve -target=module.Postgres_Database'
 			}	
 		}
 	}
