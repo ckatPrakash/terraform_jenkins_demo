@@ -8,10 +8,10 @@ module "ec2" {
   #instance_type  = "t2.micro"
 }
 
-module "postgres" {
-  source = "./Postgres_Database"
+#module "postgres" {
+#  source = "./Postgres_Database"
 
   # You can pass EC2 outputs to this module if needed
   # For example:
   # ec2_instance_id = module.ec2.ec2_instance_id
-}
+#}
