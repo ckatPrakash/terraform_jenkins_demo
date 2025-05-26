@@ -11,8 +11,14 @@ postgresql = {
 }
 }
 
+
+resource "random_integer" "random_id" {
+  min = 1000
+  max = 9999
+}
+
 resource "aws_secretsmanager_secret" "db_secret" {
-  name = "postgres-db-credentials12456"
+  name = "postgres-db-credentials${random_integer.random_id.id}"
 }
 
 resource "aws_secretsmanager_secret_version" "db_secret_version" {
