@@ -1,14 +1,17 @@
 
 pipeline {
     agent any 
-    parameters {
-        choice(name: 'choice_type', choices: ['Provision Ec2 Instance', 'Provision Postgres Database'], description: 'Choose the Options')
-    }
         environment {
             AWS_region = "us-east-1"
 	    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
             AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_KEY_ID')
-  }	
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['EC2', 'POSTGRES'],
+            description: 'Choose which module to deploy'
+        )		
+  }
+if (params.ENVIRONMENT == 'POSTGRES') {	
     stages  {
 	stage('git checkout') {
 		steps {
@@ -44,7 +47,7 @@ pipeline {
 			script {
 			input message: "Are you sure you want to '${env.USER_ACTION}'?" 
 			if (env.USER_ACTION == 'apply'){
-			sh 'terraform apply -input=false -auto-approve -lock=false tfplan'
+			sh 'terraform apply -input=false -auto-approve -lock=false tfplan -target=module.postgres_db'
 			}
 			if (env.USER_ACTION == 'destroy') {
 			sh 'terraform destroy -auto-approve'
@@ -53,4 +56,6 @@ pipeline {
 	}
 	}	
 }
+}
+	
 }
