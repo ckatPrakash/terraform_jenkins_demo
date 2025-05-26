@@ -1,11 +1,13 @@
 
 pipeline {
     agent any 
-	choice(
-            name: 'ENVIRONMENT',
+    parameters {
+        choice(
+            name: 'TF_MODULE',
             choices: ['EC2', 'POSTGRES'],
-            description: 'Choose which module to deploy'
-        )	
+            description: 'Choose which Terraform module to deploy'
+        )
+    }
         environment {
             AWS_region = "us-east-1"
 	    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
