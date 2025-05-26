@@ -56,13 +56,13 @@ pipeline {
 			script {
 			input message: "Are you sure you want to '${env.USER_ACTION}'?" 
 			if (env.USER_ACTION == 'apply' && params.TERRAFORM_MODULE == 'Postgres'){
-			sh 'terraform apply -input=false -auto-approve -lock=false tfplan -target=module.Postgres_Database'
+			sh 'terraform apply -input=false -auto-approve -lock=false tfplan'
 			}
 			if (env.USER_ACTION == 'destroy' && params.TERRAFORM_MODULE == 'Postgres') {
 			sh 'terraform destroy -auto-approve -target=module.Postgres_Database'
 			}
 			if (env.USER_ACTION == 'apply' && params.TERRAFORM_MODULE == 'EC2'){
-			sh 'terraform apply -input=false -auto-approve -lock=false tfplan -target=module.EC2_Instance'
+			sh 'terraform apply -input=false -auto-approve -lock=false tfplan'
 			}
 			if (env.USER_ACTION == 'destroy' && params.TERRAFORM_MODULE == 'EC2') {
 			sh 'terraform destroy -auto-approve -target=module.EC2_Instance'
