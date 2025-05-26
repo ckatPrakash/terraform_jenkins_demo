@@ -1,6 +1,9 @@
 
 pipeline {
     agent any 
+    parameters {
+        choice(name: 'TERRAFORM_MODULE', choices: ['EC2', 'Postgres'], description: 'Select the Terraform module to deploy')
+    }	
         environment {
             AWS_region = "us-east-1"
 	    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
@@ -21,9 +24,20 @@ pipeline {
 			sh 'terraform init'
 		}
 	}
+	    
 	stage ('Terraform plan') {
 		steps {
-			sh 'terraform plan -out tfplan'
+		 script {
+                    if (params.TERRAFORM_MODULE == 'EC2') {
+                        echo "Running terraform plan for EC2"
+			sh 'terraform plan -out tfplan -target=module.EC2_Instance'
+		    }
+                    if (params.TERRAFORM_MODULE == 'Postgres') {
+                        echo "Running terraform plan for Postgres"
+			sh 'terraform plan -out tfplan -target=module.Postgres_Database'
+		    }
+
+		 }
 		}
 	}
 	 
