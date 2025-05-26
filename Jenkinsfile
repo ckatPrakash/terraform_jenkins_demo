@@ -30,12 +30,10 @@ pipeline {
 		 script {
                     if (params.TERRAFORM_MODULE == 'EC2') {
                         echo "Running terraform plan for EC2"
-			#sh 'terraform plan -out tfplan -target=module.EC2_Instance'
 			sh 'terraform plan -input=false -lock=false -target=module.EC2_Instance -out=tfplan'    
 		    }
                     if (params.TERRAFORM_MODULE == 'Postgres') {
                         echo "Running terraform plan for Postgres"
-			#sh 'terraform plan -out tfplan -target=module.Postgres_Database'
 			sh 'terraform plan -input=false -lock=false -target=module.Postgres_Database -out=tfplan'
 		    }
 
