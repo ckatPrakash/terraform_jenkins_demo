@@ -12,7 +12,7 @@ postgresql = {
 }
 
 resource "aws_secretsmanager_secret" "db_secret" {
-  name = "postgres-db-credentials12"
+  name = "postgres-db-credentials12456"
 }
 
 resource "aws_secretsmanager_secret_version" "db_secret_version" {
