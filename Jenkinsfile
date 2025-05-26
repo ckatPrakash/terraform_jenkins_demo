@@ -1,6 +1,9 @@
 
 pipeline {
     agent any 
+    parameters {
+        choice(name: 'choice_type', choices: ['Provision Ec2 Instance', 'Provision Postgres Database'], description: 'Choose the Options')
+    }
         environment {
             AWS_region = "us-east-1"
 	    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
@@ -9,9 +12,13 @@ pipeline {
     stages  {
 	stage('git checkout') {
 		steps {
-			git branch: 'main', url: 'https://github.com/ckatPrakash/terraform_jenkins_demo.git'
+			script {
+			 if (params.choice_type == 'Provision Postgres Database') {
+			    git branch: 'main', url: 'https://github.com/ckatPrakash/terraform_jenkins_demo.git'
+			}
 		}
 	}
+	}		
 	stage ('Terraform Init') {
 		steps {
 			sh 'terraform init'
