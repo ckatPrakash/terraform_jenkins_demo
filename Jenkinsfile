@@ -9,7 +9,7 @@ pipeline {
             name: 'ENVIRONMENT',
             choices: ['EC2', 'POSTGRES'],
             description: 'Choose which module to deploy'
-        )		
+        )	
   }
 if (params.ENVIRONMENT == 'POSTGRES') {	
     stages  {
