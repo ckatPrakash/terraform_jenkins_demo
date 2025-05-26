@@ -13,9 +13,8 @@ pipeline {
 	stage('git checkout') {
 		steps {
 			script {
-			 if (params.choice_type == 'Provision Postgres Database') {
-			    git branch: 'main', url: 'https://github.com/ckatPrakash/terraform_jenkins_demo.git'
-			}
+			  git branch: 'main', url: 'https://github.com/ckatPrakash/terraform_jenkins_demo.git'
+			
 		}
 	}
 	}		
