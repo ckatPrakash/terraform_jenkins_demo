@@ -4,8 +4,8 @@ provider "aws" {
 
 module "ec2" {
   source         = "./EC2_Instance"
-  #ami            = "ami-0c55b159cbfafe1f0"
-  #instance_type  = "t2.micro"
+  ami            = "ami-0c55b159cbfafe1f0"
+  instance_type  = "t2.micro"
 }
 
 #module "postgres" {
