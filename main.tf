@@ -2,9 +2,9 @@ provider "aws" {
   region = "us-east-1"
 }
 
-#module "ec2" {
-#  source         = "./EC2_Instance"
-#}
+module "ec2" {
+  source         = "./EC2_Instance"
+}
 
 module "postgres" {
   source = "./Postgres_Database"
